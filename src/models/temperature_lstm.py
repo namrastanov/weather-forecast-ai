@@ -70,11 +70,13 @@ class TemperatureLSTM:
         epochs: int = 100,
         learning_rate: float = 0.001
     ) -> dict:
-        """Train the LSTM model."""
         logger.info(f"Training LSTM for {epochs} epochs")
-        self._build_model()
-        history = {"loss": [], "val_loss": []}
-        return history
+        if self._model is None:
+            self._build_model()
+        if self._model is None:
+            raise RuntimeError("Failed to build model")
+        # TODO: Implement actual training loop with early stopping
+        raise NotImplementedError("Training loop not yet implemented")
 
     def predict(self, X: np.ndarray, steps: int = 1) -> np.ndarray:
         """Generate predictions."""
