@@ -46,8 +46,9 @@ def _predict_single(location: BatchLocation, days: int) -> BatchResultItem:
         return BatchResultItem(
             id=location.id,
             status="success",
-            data={"location": f"{location.latitude},{location.longitude}"}
-        )
+        # TODO: Implement actual weather prediction logic using location and days
+        prediction_result = f"Placeholder forecast for {location} for {days} days"
+        return BatchResultItem(location=location, days=days, result=prediction_result)
     except Exception as e:
         return BatchResultItem(
             id=location.id,
