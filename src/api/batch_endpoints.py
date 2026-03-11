@@ -43,12 +43,13 @@ def _predict_single(location: BatchLocation, days: int) -> BatchResultItem:
     """Process single location prediction."""
     try:
         # Placeholder for actual prediction
+        # Placeholder for actual prediction
+        prediction_result = f"Placeholder forecast for {location.id} for {days} days"
         return BatchResultItem(
             id=location.id,
             status="success",
-        # TODO: Implement actual weather prediction logic using location and days
-        prediction_result = f"Placeholder forecast for {location} for {days} days"
-        return BatchResultItem(location=location, days=days, result=prediction_result)
+            data={"forecast": prediction_result}
+        )
     except Exception as e:
         return BatchResultItem(
             id=location.id,
