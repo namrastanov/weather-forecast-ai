@@ -1,6 +1,6 @@
 """Batch prediction endpoints."""
 
-from fastapi import APIRouter, HTTPException, BackgroundTasks
+from fastapi import APIRouter, HTTPException, BackgroundTasks, Response
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import List
 from pydantic import BaseModel, Field
@@ -59,8 +59,9 @@ def _predict_single(location: BatchLocation, days: int) -> BatchResultItem:
 
 
 @router.post("/batch-predict")
-async def batch_predict(request: BatchRequest) -> BatchResponse:
+async def batch_predict(request: BatchRequest, response: Response) -> BatchResponse:
     """Process batch prediction request."""
+    response.headers['X-Batch-Limit'] = '100'
     if len(request.locations) > 100:
         raise HTTPException(400, "Maximum 100 locations per batch")
     
